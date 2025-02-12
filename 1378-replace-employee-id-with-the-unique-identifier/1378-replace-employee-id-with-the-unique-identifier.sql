@@ -5,4 +5,4 @@ select
 from
     Employees e
 left join EmployeeUNI eu
-    on e.id <=> eu.id
+    using(id)

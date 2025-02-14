@@ -5,7 +5,8 @@ a as (
         id,
         recordDate,
         temperature,
-        lag(temperature) over (order by recordDate) as temperature_last_day
+        lag(temperature) over (order by recordDate) as temperature_last_day,
+        lag(recordDate) over (order by recordDate) as last_day
     from Weather
 )
 
@@ -14,4 +15,5 @@ select
 from
     a
 where
-    temperature > temperature_last_day
+    datediff(recordDate, last_day) = 1
+    and temperature > temperature_last_day
